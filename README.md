@@ -74,6 +74,15 @@ mvn package
 
 ## Lint
 
+Lint the frontend code using ESLint:
+
+```shell
+cd js
+pnpm lint
+```
+
+For detailed information about the ESLint configuration, plugins, and best practices, see [js/ESLINT.md](js/ESLINT.md).
+
 ## Debug
 Run Jira 
 ```shell

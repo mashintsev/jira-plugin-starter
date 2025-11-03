@@ -13,12 +13,6 @@
   "browserslist": [
     "extends @atlassian/browserslist-config-server"
   ],
-  "eslintConfig": {
-    "extends": [
-      "plugin:@atlaskit/design-system/recommended",
-      "plugin:@atlaskit/ui-styling-standard/recommended"
-    ]
-  },
   "babel": {
     "presets": [
       "@babel/react",

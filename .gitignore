@@ -7,6 +7,15 @@ lib
 # dependencies
 /js/node_modules
 
+# build artifacts
+/js/dist
+/js/build
+/js/coverage
+/js/.cache
+
+# ESLint cache
+.eslintcache
+
 # misc
 .env.local
 .env.development.local

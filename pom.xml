@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jira.plugins</groupId>
+    <artifactId>jira-plugin-starter</artifactId>
+
+    <version>1.0.0</version>
+    <name>Jira DC Plugin Starter</name>
+    <description>Jira Plugin Starter is a modern, feature-ready template for quickly building server-side plugins for
+        Jira Data Center. It includes pre-configured tools and structure for Maven, Java, and the Atlassian Plugin SDK,
+        following the "Grab It All – Use Only What You Need" approach for flexible development.
+    </description>
+
+    <organization>
+        <name>Jira Plugin Starter Company</name>
+        <url>https://github.com/mashintsev/jira-plugin-starter</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Ivan Mashintsev</name>
+            <email>mashintsev@gmail.com</email>
+            <url>https://t.me/mashintsev</url>
+        </developer>
+    </developers>
+
+    <url>https://github.com/mashintsev/jira-plugin-starter</url>
+    <scm>
+        <url>https://github.com/mashintsev/jira-plugin-starter</url>
+        <connection>git@github.com:mashintsev/jira-plugin-starter.git</connection>
+    </scm>
+
+    <packaging>atlassian-plugin</packaging>
+
+    <properties>
+        <!-- Jira version -->
+        <jira.version>10.3.0</jira.version>
+
+        <!-- Dependency versions -->
+        <commons.version>1.0.1</commons.version>
+        <lombok.version>1.18.38</lombok.version>
+        <annotations.version>26.0.2</annotations.version>
+        <errorprone.version>2.41.0</errorprone.version>
+        <nullaway.version>0.12.3</nullaway.version>
+
+        <!-- Build properties -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.propertiesEncoding>UTF-8</project.build.propertiesEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${annotations.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Jira core dependency, it's jira-api + some internal atlassian classes used in jira -->
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-core</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>jndi</groupId>
+                    <artifactId>jndi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jta</groupId>
+                    <artifactId>jta</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.octo.captcha</groupId>
+                    <artifactId>jcaptcha-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Active objects dependency needed for using atlassian active objects ORM-->
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-plugin</artifactId>
+            <scope>provided</scope>
+            <version>5.3.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-lang3</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Atlassian spring scanner dependency, inside plugin used for DI via annotations like @Component, @Component-Import -->
+        <dependency>
+            <groupId>com.atlassian.plugin</groupId>
+            <artifactId>atlassian-spring-scanner-annotation</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Atlassian rest common dependency
+        Inside plugins mostly used for it's JAX-RS annotations
+         -->
+        <!-- Dependency for Jira 8-9       -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.atlassian.plugins.rest</groupId>-->
+        <!--            <artifactId>atlassian-rest-module</artifactId>-->
+        <!--            <version>7.0.2</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.atlassian.plugins.rest</groupId>
+            <artifactId>atlassian-rest-v2-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.templaterenderer</groupId>
+            <artifactId>atlassian-template-renderer-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Lombok project dependency, inside plugins used for their usefull annotations like: @Getters/@Setters/@Slf4j etc-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>17</source>
+                    <fork>true</fork>
+                    <compilerArgs>
+                        <arg>-XDcompilePolicy=simple</arg>
+                        <arg>--should-stop=ifError=FLOW</arg>
+                        <arg>-Xplugin:ErrorProne -Xep:DeadException:WARN -Xep:GuardedBy:OFF -Xep:CanIgnoreReturnValueSuggester:OFF \
+                            -XepDisableWarningsInGeneratedCode -XepExcludedPaths:.*/target/generated-sources/.* -Xep:SameNameButDifferent:OFF -XepOpt:NullAway:AnnotatedPackages=com.jira.plugins -XepOpt:NullAway:CustomNullableAnnotations=org.jetbrains.annotations</arg>
+                        <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+                        <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
+                        <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+                        <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+                        <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
+                        <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+                        <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+                        <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+                        <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+                    </compilerArgs>
+                    <showWarnings>true</showWarnings>
+                    <failOnWarning>true</failOnWarning>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>com.google.errorprone</groupId>
+                            <artifactId>error_prone_core</artifactId>
+                            <version>${errorprone.version}</version>
+                        </path>
+                        <path>
+                            <groupId>com.uber.nullaway</groupId>
+                            <artifactId>nullaway</artifactId>
+                            <version>${nullaway.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>jira-maven-plugin</artifactId>
+                <version>9.6.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <productVersion>${jira.version}</productVersion>
+                    <productDataVersion>${jira.version}</productDataVersion>
+                    <enableQuickReload>true</enableQuickReload>
+                    <allowGoogleTracking>false</allowGoogleTracking>
+                    <extractDependencies>false</extractDependencies>
+                    <skipReportFeManifestAssociations>false</skipReportFeManifestAssociations>
+                    <skipCopyFeModuleManifests>false</skipCopyFeModuleManifests>
+                    <skipReportFeManifestAssociations>false</skipReportFeManifestAssociations>
+                    <compressJs>false</compressJs>
+                    <compressCss>false</compressCss>
+                    <jvmArgs>-Xmx4G</jvmArgs>
+                    <applications>
+                        <application>
+                            <applicationKey>jira-software</applicationKey>
+                            <version>${jira.version}</version>
+                        </application>
+                    </applications>
+                    <products>
+                        <product>
+                            <id>jira</id>
+                            <instanceId>jira</instanceId>
+                            <version>${jira.version}</version>
+                        </product>
+                    </products>
+                    <instructions>
+                        <Atlassian-Plugin-Key>${project.groupId}.${project.artifactId}</Atlassian-Plugin-Key>
+                        <Atlassian-Scan-Folders>META-INF/plugin-descriptors</Atlassian-Scan-Folders>
+                        <Spring-Context>*</Spring-Context>
+                        <Import-Package>
+                            <!-- jira stuff -->
+                            com.atlassian.jira.plugin.webfragment.contextproviders,
+                            com.atlassian.jira.plugin.webfragment.conditions,
+                            com.atlassian.jira.plugin.workflow,
+                            com.atlassian.jira.issue.customfields.searchers,
+                            com.atlassian.jira.jql.operand,
+                            <!-- spring imports -->
+                            org.springframework.aop,
+                            org.springframework.core,
+                            org.springframework.cglib,
+                            org.springframework.cglib.proxy,
+                            org.springframework.cglib.core,
+                            org.springframework.cglib.reflect,
+                            org.springframework.osgi.*;resolution:="optional",
+                            com.atlassian.jira.*;resolution:="optional",
+                            com.atlassian.event.*;resolution:="optional",
+                            com.atlassian.templaterenderer.*;resolution:="optional",
+                            com.atlassian.sal.*;resolution:="optional",
+                            com.atlassian.activeobjects.*;resolution:="optional",
+                            com.atlassian.security.*;resolution:="optional",
+                            *;version="0";resolution:=optional,
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <propertiesEncoding>UTF-8</propertiesEncoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.atlassian.plugin</groupId>
+                <artifactId>atlassian-spring-scanner-maven-plugin</artifactId>
+                <version>4.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>atlassian-spring-scanner</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Enable this to get build-time logging of annotations atlassian-spring-scanner-maven-plugin has noticed -->
+                    <verbose>false</verbose>
+                    <scannedDependencies>
+                        <dependency>
+                            <groupId>com.atlassian.plugin</groupId>
+                            <artifactId>atlassian-spring-scanner-external-jar</artifactId>
+                        </dependency>
+                    </scannedDependencies>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.46.1</version>
+                <configuration>
+                    <java>
+                        <includes>
+                            <include>src/main/java/**/*.java</include>
+                            <include>src/test/java/**/*.java</include>
+                        </includes>
+
+                        <importOrder/>
+                        <removeUnusedImports/>
+                        <googleJavaFormat/>
+                    </java>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>spotless-check</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>12.1.5</version>
+                <configuration>
+                    <skipProvidedScope>true</skipProvidedScope>
+                    <skipRuntimeScope>true</skipRuntimeScope>
+                    <failBuildOnCVSS>8</failBuildOnCVSS>
+                    <formats>html</formats>
+                    <prettyPrint>true</prettyPrint>
+                    <pnpmAuditAnalyzerEnabled>true</pnpmAuditAnalyzerEnabled>
+
+                    <yarnAuditAnalyzerEnabled>false</yarnAuditAnalyzerEnabled>
+                    <nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
+                    <nodeAuditSkipDevDependencies>true</nodeAuditSkipDevDependencies>
+                    <nodePackageSkipDevDependencies>true</nodePackageSkipDevDependencies>
+                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+                    <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
+                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                    <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
+                    <suppressionFiles>
+                        <suppressionFile>
+                            https://dcapt-downloads.s3.amazonaws.com/atlassian-security-scanner-dc-apps-suppressions.xml
+                        </suppressionFile>
+                    </suppressionFiles>
+<!--                    <scanSet>-->
+<!--                        <fileSets>-->
+<!--                            &lt;!&ndash; todo &ndash;&gt;-->
+<!--&lt;!&ndash;                            <file>./js/pnpm</file>&ndash;&gt;-->
+<!--                        </fileSets>-->
+<!--                    </scanSet>-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.17.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.3</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>atlassian</id>
+            <url>https://maven.artifacts.atlassian.com/</url>
+        </repository>
+        <repository>
+            <id>jenkins-releases</id>
+            <name>Jenkins</name>
+            <url>https://repo.jenkins-ci.org/releases/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>atlassian</id>
+            <url>https://maven.artifacts.atlassian.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.atlassian.jira</groupId>
+                <artifactId>jira-project</artifactId>
+                <version>${jira.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

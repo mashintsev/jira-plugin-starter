@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web>
+    <!-- Plugin Settings  -->
+    <web-section key="starter-settings-section" location="admin_plugins_menu">
+        <label key="com.jira.plugins.starter.title" />
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+            <param name="permission">admin</param>
+        </condition>
+    </web-section>
+
+    <web-item key="starter-settings-web-item" section="admin_plugins_menu/starter-settings-section">
+        <label key="com.jira.plugins.starter.settings.title" />
+        <condition class="com.atlassian.jira.plugin.webfragment.conditions.JiraGlobalPermissionCondition">
+            <param name="permission">admin</param>
+        </condition>
+        <link linkId="starter-settings-link">/secure/StarterPluginConfigureAction.jspa</link>
+    </web-item>
+
+    <webwork1 key="starter-settings-action" class="java.lang.Object">
+        <actions>
+            <action name="com.jira.plugins.starter.web.action.StarterPluginConfigureAction" alias="StarterPluginConfigureAction" roles-required="admin">
+                <view name="success">/com/jira/plugins/starter/templates/settings/page.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+
+</web>

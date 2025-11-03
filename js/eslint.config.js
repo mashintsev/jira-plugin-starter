@@ -18,9 +18,6 @@ export default defineConfig([
             "**/*.config.js",
             "**/*.config.cjs",
             "**/*.config.mjs",
-            "*.config.js",
-            "*.config.cjs",
-            "*.config.mjs",
             "coverage/",
             "build/",
             ".cache/",
@@ -70,13 +67,6 @@ export default defineConfig([
             
             // React 18+ doesn't require React import for JSX
             'react/react-in-jsx-scope': 'off',
-            
-            // Allow unused vars that start with underscore (common pattern for intentionally unused params)
-            '@typescript-eslint/no-unused-vars': ['error', {
-                argsIgnorePattern: '^_',
-                varsIgnorePattern: '^_',
-                caughtErrorsIgnorePattern: '^_',
-            }],
         },
     },
 ]);

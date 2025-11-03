@@ -56,8 +56,13 @@ The following are excluded from linting:
 ### Custom Rules
 
 - **react/react-in-jsx-scope**: Disabled (React 18+ doesn't require React import)
-- **@typescript-eslint/no-unused-vars**: Modified to allow variables starting with underscore
+
+### Inherited Rules from XO TypeScript
+
+The XO TypeScript configuration provides several useful defaults:
+- **@typescript-eslint/no-unused-vars**: Allows variables starting with underscore
   - Useful for intentionally unused parameters (e.g., `_event`, `_unused`)
+  - Pattern: `^_` for args, vars, and caught errors
 
 ### Language Options
 

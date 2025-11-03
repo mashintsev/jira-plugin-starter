@@ -46,7 +46,7 @@
 
         <!-- Dependency versions -->
         <commons.version>1.0.1</commons.version>
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
         <annotations.version>26.0.2-1</annotations.version>
         <errorprone.version>2.41.0</errorprone.version>
         <nullaway.version>0.12.11</nullaway.version>

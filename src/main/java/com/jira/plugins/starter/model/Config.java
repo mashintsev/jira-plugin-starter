@@ -7,9 +7,11 @@ import org.jetbrains.annotations.Nullable;
 public interface Config extends Entity {
   @Unique
   String getPropertyKey();
+
   void setPropertyKey(String propertyKey);
 
   @Nullable
   String getPropertyValue();
+
   void setPropertyValue(@Nullable String propertyValue);
 }

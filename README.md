@@ -110,10 +110,10 @@ atlas-mvn dependency:tree -DoutputType=dot -DoutputFile=maven_dependency_tree.gv
             ├── .../rest # REST API plugin resources
             ├── .../service # Service Components for plugin Business Logic
             └── .../web
-                ├── .../action # Jira Web Actions
-                ├── .../condition # Jira Web Conditions
-                ├── .../filter # Web Filters
-                ├── .../servlet # Servlets
+                ├── action # Jira Web Actions
+                ├── condition # Jira Web Conditions
+                ├── filter # Web Filters
+                ├── servlet # Servlets
         └── resources
             ├── atlassian-plugin.xml # plugin configuration
             ├── .../images/ # static images

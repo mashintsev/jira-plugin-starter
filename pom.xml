@@ -42,7 +42,7 @@
 
     <properties>
         <!-- Jira version -->
-        <jira.version>10.3.0</jira.version>
+        <jira.version>10.3.12</jira.version>
 
         <!-- Dependency versions -->
         <commons.version>1.0.1</commons.version>

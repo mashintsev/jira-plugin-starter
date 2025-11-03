@@ -11,10 +11,12 @@ function App() {
   );
 }
 
-export default function init() {
+const init = () => {
   const domNode = document.getElementById("starter-settings-container");
   if (domNode) {
     const root = createRoot(domNode);
     root.render(<App />);
   }
-}
+};
+
+export default init;

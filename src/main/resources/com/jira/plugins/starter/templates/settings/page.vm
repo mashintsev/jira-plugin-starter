@@ -2,7 +2,7 @@
 <head>
     <title>$i18n.getText("com.jira.plugins.starter.settings.title")</title>
     <meta name="decorator" content="atl.admin"/>
-    ##    $webResourceManager.requireResource( "com.jira.plugins.starter:entrypoint-settings-app" )
+    $webResourceManager.requireResource( "com.jira.plugins.jira-plugin-starter:entrypoint-settings-app" )
 </head>
 <body>
 <div id="starter-settings-container">

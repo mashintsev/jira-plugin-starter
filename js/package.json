@@ -1,0 +1,108 @@
+{
+  "name": "com.jira.plugins.jira-plugin-starter",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Jira Plugin Starter - Frontend",
+  "scripts": {
+    "build": "webpack --config webpack.config.cjs  --mode=development --stats-error-details",
+    "build:prod": "webpack --config webpack.config.cjs --mode=production",
+    "analyze": "webpack --config webpack.config.cjs --mode=production --analyze",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --fix"
+  },
+  "browserslist": [
+    "extends @atlassian/browserslist-config-server"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "plugin:@atlaskit/design-system/recommended",
+      "plugin:@atlaskit/ui-styling-standard/recommended"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/react",
+      "@babel/typescript",
+      [
+        "@babel/env",
+        {
+          "modules": false
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-react-jsx",
+        {
+          "runtime": "automatic",
+          "importSource": "@compiled/react"
+        }
+      ],
+      [
+        "@compiled/babel-plugin",
+        {
+          "transformerBabelPlugins": [
+            "@atlaskit/tokens/babel-plugin"
+          ]
+        }
+      ]
+    ],
+    "assumptions": {
+      "setPublicClassFields": false
+    }
+  },
+  "packageManager": "pnpm@10.20.0",
+  "devDependencies": {
+    "@atlaskit/eslint-plugin-design-system": "^13.23.0",
+    "@atlaskit/eslint-plugin-ui-styling-standard": "^1.4.5",
+    "@atlassian/browserslist-config-server": "^0.3.2",
+    "@babel/core": "^7.28.5",
+    "@babel/plugin-transform-react-jsx": "^7.27.1",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
+    "@compiled/babel-plugin": "^0.38.1",
+    "@compiled/babel-plugin-strip-runtime": "^0.38.0",
+    "@compiled/eslint-plugin": "^0.19.1",
+    "@compiled/webpack-loader": "^0.19.6",
+    "@tanstack/eslint-plugin-query": "^5.91.2",
+    "@types/react": "^18.3.26",
+    "@types/react-dom": "^18.3.7",
+    "atlassian-webresource-webpack-plugin": "^7.0.1",
+    "babel-loader": "^10.0.0",
+    "browserslist": "^4.27.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-config-xo": "^0.49.0",
+    "eslint-config-xo-react": "^0.29.0",
+    "eslint-config-xo-typescript": "^9.0.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-security": "^3.0.1",
+    "inspectpack": "^4.7.1",
+    "mini-css-extract-plugin": "^2.9.4",
+    "terser-webpack-plugin": "^5.3.14",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.3",
+    "webpack": "^5.102.1",
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-cli": "^6.0.1",
+    "webpack-stream": "^7.0.0",
+    "webpackbar": "^7.0.0"
+  },
+  "dependencies": {
+    "@atlaskit/tokens": "^7.1.0",
+    "@atlassian/wrm-react-i18n": "^4.1.3",
+    "@compiled/react": "^0.18.6",
+    "@tanstack/react-query": "^5.90.6",
+    "ky": "^1.13.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "eslint": "9.38.0"
+    }
+  }
+}

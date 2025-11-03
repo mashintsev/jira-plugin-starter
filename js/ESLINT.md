@@ -66,9 +66,9 @@ The XO TypeScript configuration provides several useful defaults:
 
 ### Language Options
 
-- **ECMAVersion**: `latest` - Uses the latest ECMAScript features
+- **ECMAVersion**: `2024` - Enables ECMAScript 2024 features for consistent behavior
 - **Source Type**: `module` - ES modules
-- **JSX Support**: Enabled for React components
+- **JSX Support**: Automatically enabled for `.tsx` files by TypeScript parser
 - **TypeScript Project**: Linked to `./tsconfig.json`
 
 ## Usage

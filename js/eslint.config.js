@@ -46,14 +46,11 @@ export default defineConfig([
     {
         files: ['**/*.{ts,tsx}'],
         languageOptions: {
-            ecmaVersion: 'latest',
+            ecmaVersion: 2024,
             sourceType: 'module',
             parserOptions: {
                 project: ['./tsconfig.json'],
                 tsconfigRootDir: import.meta.dirname,
-                ecmaFeatures: {
-                    jsx: true,
-                },
             },
         },
         plugins: {

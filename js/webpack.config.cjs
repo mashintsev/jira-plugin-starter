@@ -88,12 +88,13 @@ const config = {
         runtimeChunk: {
             name: 'manifest',
         },
+        concatenateModules: true,
         splitChunks: {
             cacheGroups: {
                 commons: {
                     name: 'commons',
                     chunks: 'initial',
-                    minChunks: 3,
+                    minChunks: 2,
                 },
             },
         },
@@ -110,7 +111,7 @@ module.exports = (env, argv) => {
     if (argv.mode === 'development') {
         config.watch = true;
         config.watchOptions = {
-            aggregateTimeout: 2000,
+            aggregateTimeout: 500,
         };
         config.devtool = 'source-map';
     } else if (argv.mode === 'production') {

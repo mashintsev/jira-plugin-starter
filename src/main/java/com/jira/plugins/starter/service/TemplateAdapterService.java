@@ -4,5 +4,7 @@ import java.io.IOException;
 
 public interface TemplateAdapterService {
 
-  String renderTemplate(String templatePath) throws IOException;
+  String renderTemplateAsAtlassianRenderer(String templatePath) throws IOException;
+
+  String renderTemplateAsVelocityRenderer(String templatePath) throws IOException;
 }

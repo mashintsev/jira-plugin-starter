@@ -19,9 +19,16 @@ public class TemplateAdapterResource {
   }
 
   @GET
-  @Path("render")
+  @Path("renderAsRenderer")
   @Produces("text/html; charset=UTF-8")
-  public String render(@QueryParam("path") String path) throws IOException {
-    return templateAdapterService.renderTemplate(path);
+  public String renderAsRenderer(@QueryParam("path") String path) throws IOException {
+    return templateAdapterService.renderTemplateAsAtlassianRenderer(path);
+  }
+
+  @GET
+  @Path("renderAsVelocity")
+  @Produces("text/html; charset=UTF-8")
+  public String renderAsVelocity(@QueryParam("path") String path) throws IOException {
+    return templateAdapterService.renderTemplateAsVelocityRenderer(path);
   }
 }

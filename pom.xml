@@ -5,7 +5,7 @@
     <groupId>com.jira.plugins</groupId>
     <artifactId>jira-plugin-starter</artifactId>
 
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <name>Jira DC Plugin Starter</name>
     <description>Jira Plugin Starter is a modern, feature-ready template for quickly building server-side plugins for
         Jira Data Center. It includes pre-configured tools and structure for Maven, Java, and the Atlassian Plugin SDK,

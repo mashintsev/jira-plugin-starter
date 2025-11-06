@@ -321,10 +321,6 @@ atlas-mvn dependency:tree -DoutputType=dot -DoutputFile=maven_dependency_tree.gv
 ```
 # FAQ
 
-# Architecture
-
-For detailed information about project architecture, modules, and technologies, see [ARCHITECTURE.md](ARCHITECTURE.md).
-
 # Resources
 - [Atlassian Plugin Tutorials Guides](https://developer.atlassian.com/server/framework/atlassian-sdk/tutorials-and-guides/)
   - Configuring the Velocity method allowlist - [link](https://developer.atlassian.com/server/framework/atlassian-sdk/configuring-the-velocity-allowlist/#configuring-the-velocity-method-allowlist)

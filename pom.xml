@@ -50,6 +50,7 @@
         <annotations.version>26.0.2-1</annotations.version>
         <errorprone.version>2.41.0</errorprone.version>
         <nullaway.version>0.12.11</nullaway.version>
+        <caffeine.version>3.1.8</caffeine.version>
 
         <!-- Build properties -->
         <maven.compiler.release>17</maven.compiler.release>
@@ -66,6 +67,17 @@
             <artifactId>annotations</artifactId>
             <version>${annotations.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.jira.plugins</groupId>
+            <artifactId>jira-greenhopper-api</artifactId>
+            <version>${jira.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Jira core dependency, it's jira-api + some internal atlassian classes used in jira -->
@@ -240,6 +252,10 @@
                             <applicationKey>jira-software</applicationKey>
                             <version>${jira.version}</version>
                         </application>
+                        <application>
+                            <applicationKey>jira-servicedesk</applicationKey>
+                            <version>${jira.version}</version>
+                        </application>
                     </applications>
                     <products>
                         <product>
@@ -276,6 +292,10 @@
                             *;version="0";resolution:=optional,
                         </Import-Package>
                     </instructions>
+<!--                    <banningExcludes>-->
+<!--                        <exclude>commons-codec:commons-codec</exclude>-->
+<!--                        <exclude>com.google.code.gson:gson</exclude>-->
+<!--                    </banningExcludes>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -360,12 +380,6 @@
                             https://dcapt-downloads.s3.amazonaws.com/atlassian-security-scanner-dc-apps-suppressions.xml
                         </suppressionFile>
                     </suppressionFiles>
-<!--                    <scanSet>-->
-<!--                        <fileSets>-->
-<!--                            &lt;!&ndash; todo &ndash;&gt;-->
-<!--&lt;!&ndash;                            <file>./js/pnpm</file>&ndash;&gt;-->
-<!--                        </fileSets>-->
-<!--                    </scanSet>-->
                 </configuration>
             </plugin>
             <plugin>

@@ -5,8 +5,11 @@ name: Plugin Build
 
 on:
   workflow_dispatch:
-  release:
-    types: [created]
+    release:
+      types: [created]
+    push:
+      tags:
+        - '*.*.*'
 
 jobs:
   build:

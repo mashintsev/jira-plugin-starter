@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 
 @Path("templates")
 public class TemplateAdapterResource {
@@ -21,14 +20,14 @@ public class TemplateAdapterResource {
   @GET
   @Path("renderAsRenderer")
   @Produces("text/html; charset=UTF-8")
-  public String renderAsRenderer(@QueryParam("path") String path) throws IOException {
-    return templateAdapterService.renderTemplateAsAtlassianRenderer(path);
+  public String renderAsRenderer() throws IOException {
+    return templateAdapterService.renderTemplateAsAtlassianRenderer();
   }
 
   @GET
   @Path("renderAsVelocity")
   @Produces("text/html; charset=UTF-8")
-  public String renderAsVelocity(@QueryParam("path") String path) throws IOException {
-    return templateAdapterService.renderTemplateAsVelocityRenderer(path);
+  public String renderAsVelocity() throws IOException {
+    return templateAdapterService.renderTemplateAsVelocityRenderer();
   }
 }

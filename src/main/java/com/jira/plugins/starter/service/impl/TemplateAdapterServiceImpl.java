@@ -5,11 +5,9 @@ import com.atlassian.jira.template.VelocityTemplatingEngine;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.jira.plugins.starter.service.TemplateAdapterService;
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.io.StringWriter;
 import java.util.Map;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,17 +23,18 @@ public class TemplateAdapterServiceImpl implements TemplateAdapterService {
   }
 
   @Override
-  public String renderTemplateAsAtlassianRenderer(String templatePath) throws IOException {
+  public String renderTemplateAsAtlassianRenderer() throws IOException {
     return velocityTemplatingEngine
         .render(
-            TemplateSources.fragment(
-                FileUtils.readFileToString(new File(templatePath), StandardCharsets.UTF_8)))
+            TemplateSources.file("/com/jira/plugins/starter/templates/custom/custom_template.vm"))
         .asHtml();
   }
 
   @Override
-  public String renderTemplateAsVelocityRenderer(String templatePath) throws IOException {
-    return templateRenderer.renderFragment(
-        FileUtils.readFileToString(new File(templatePath), StandardCharsets.UTF_8), Map.of());
+  public String renderTemplateAsVelocityRenderer() throws IOException {
+    StringWriter writer = new StringWriter();
+    templateRenderer.render(
+        "/com/jira/plugins/starter/templates/custom/custom_template.vm", Map.of(), writer);
+    return writer.toString();
   }
 }

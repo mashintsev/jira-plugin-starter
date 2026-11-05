@@ -7,7 +7,7 @@ import com.atlassian.jira.security.request.SupportedMethods;
 import com.atlassian.jira.web.action.JiraWebActionSupport;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.websudo.WebSudoRequired;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 @WebSudoRequired
 @SupportedMethods({RequestMethod.GET})

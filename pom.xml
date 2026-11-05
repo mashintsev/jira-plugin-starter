@@ -42,18 +42,20 @@
 
     <properties>
         <!-- Jira version -->
-        <jira.version>10.3.12</jira.version>
+        <jira.version>11.3.13</jira.version>
 
         <!-- Dependency versions -->
         <commons.version>1.0.1</commons.version>
-        <lombok.version>1.18.42</lombok.version>
-        <annotations.version>26.0.2-1</annotations.version>
-        <errorprone.version>2.41.0</errorprone.version>
-        <nullaway.version>0.12.11</nullaway.version>
-        <caffeine.version>3.1.8</caffeine.version>
+        <lombok.version>1.18.48</lombok.version>
+        <annotations.version>26.1.0</annotations.version>
+        <errorprone.version>2.52.0</errorprone.version>
+        <nullaway.version>0.14.3</nullaway.version>
+        <caffeine.version>3.3.1</caffeine.version>
+        <!-- Active Objects version bundled with Jira 11.3 (platform 8.3) -->
+        <activeobjects.version>7.0.14</activeobjects.version>
 
         <!-- Build properties -->
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -72,6 +74,13 @@
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
             <version>${caffeine.version}</version>
+            <exclusions>
+                <!-- Annotations-only dependency, provided by the Jira platform (banned from bundling) -->
+                <exclusion>
+                    <groupId>org.jspecify</groupId>
+                    <artifactId>jspecify</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.atlassian.jira.plugins</groupId>
@@ -100,18 +109,24 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- Servlet API -->
+        <!-- Servlet API (Jira 11: Jakarta EE 10 / Servlet 6.0) -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Dependency Injection (Jira 11: jakarta.inject 2.0) -->
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <!-- Active objects dependency needed for using atlassian active objects ORM-->
         <dependency>
             <groupId>com.atlassian.activeobjects</groupId>
             <artifactId>activeobjects-plugin</artifactId>
+            <version>${activeobjects.version}</version>
             <scope>provided</scope>
-            <version>5.3.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.commons</groupId>
@@ -166,11 +181,43 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- JAX-RS (Jira 11: Jakarta RESTful Web Services 3.1) -->
         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.1.1</version>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-forms</artifactId>
+            <version>v1-rev20250422-2.9.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpcore</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -179,23 +226,25 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.4</version>
+                <version>3.2.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>3.1.4</version>
+                <version>3.2.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.1</version>
+                <version>3.16.0</version>
                 <configuration>
-                    <source>17</source>
+                    <release>21</release>
                     <fork>true</fork>
                     <compilerArgs>
                         <arg>-XDcompilePolicy=simple</arg>
                         <arg>--should-stop=ifError=FLOW</arg>
+                        <!-- Required by Error Prone 2.4x+ on JDK 21 -->
+                        <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
                         <arg>-Xplugin:ErrorProne -Xep:DeadException:WARN -Xep:GuardedBy:OFF -Xep:CanIgnoreReturnValueSuggester:OFF \
                             -XepDisableWarningsInGeneratedCode -XepExcludedPaths:.*/target/generated-sources/.* -Xep:SameNameButDifferent:OFF -XepOpt:NullAway:AnnotatedPackages=com.jira.plugins -XepOpt:NullAway:CustomNullableAnnotations=org.jetbrains.annotations</arg>
                         <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
@@ -233,7 +282,7 @@
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>jira-maven-plugin</artifactId>
-                <version>9.8.3</version>
+                <version>9.14.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <productVersion>${jira.version}</productVersion>
@@ -301,7 +350,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.5.0</version>
                 <configuration>
                     <propertiesEncoding>UTF-8</propertiesEncoding>
                 </configuration>
@@ -309,7 +358,7 @@
             <plugin>
                 <groupId>com.atlassian.plugin</groupId>
                 <artifactId>atlassian-spring-scanner-maven-plugin</artifactId>
-                <version>4.0.0</version>
+                <version>6.0.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -332,7 +381,7 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.11.0</version>
                 <configuration>
                     <java>
                         <includes>
@@ -358,7 +407,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>12.1.8</version>
+                <version>13.0.0</version>
                 <configuration>
                     <skipProvidedScope>true</skipProvidedScope>
                     <skipRuntimeScope>true</skipRuntimeScope>
@@ -385,12 +434,12 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.17.1</version>
+                <version>2.23.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.7.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -400,7 +449,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.6.3</version>
+                                    <version>3.8.1</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>

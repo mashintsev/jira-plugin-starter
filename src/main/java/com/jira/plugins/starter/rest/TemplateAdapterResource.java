@@ -1,11 +1,11 @@
 package com.jira.plugins.starter.rest;
 
 import com.jira.plugins.starter.service.TemplateAdapterService;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import java.io.IOException;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 
 @Path("templates")
 public class TemplateAdapterResource {

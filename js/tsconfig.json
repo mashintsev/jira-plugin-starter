@@ -6,7 +6,7 @@
     "lib": ["dom", "ESNext"],
     "module": "ESNext",
     /* Bundler mode */
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -24,7 +24,6 @@
     /* Other */
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "downlevelIteration": true,
     "importHelpers": true,
     "pretty": true,
     "sourceMap": true,
@@ -34,9 +33,8 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@compiled/react",
 
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "incremental": true
   },

@@ -8,9 +8,9 @@ The ESLint setup includes multiple plugins and configurations optimized for a Ji
 
 ### Plugins and Configurations
 
-1. **XO TypeScript** (`eslint-config-xo-typescript`)
-   - Provides strict TypeScript linting rules
-   - Enforces best practices for TypeScript code
+1. **XO** (`eslint-config-xo`, called as `xo({browser: true})`)
+   - Strict JavaScript and TypeScript linting rules (formerly `eslint-config-xo-typescript`, now merged into `eslint-config-xo`)
+   - Includes `unicorn` and `n` plugin rules
 
 2. **XO React** (`eslint-config-xo-react`)
    - React-specific linting rules
@@ -56,10 +56,12 @@ The following are excluded from linting:
 ### Custom Rules
 
 - **react/react-in-jsx-scope**: Disabled (React 18+ doesn't require React import)
+- **unicorn/filename-case**: Allows both kebab-case and PascalCase (React component files like `App.tsx`)
+- **n/file-extension-in-import**: Disabled (webpack resolves imports without extensions)
 
-### Inherited Rules from XO TypeScript
+### Inherited Rules from XO
 
-The XO TypeScript configuration provides several useful defaults:
+The XO configuration provides several useful defaults:
 - **@typescript-eslint/no-unused-vars**: Allows variables starting with underscore
   - Useful for intentionally unused parameters (e.g., `_event`, `_unused`)
   - Pattern: `^_` for args, vars, and caught errors

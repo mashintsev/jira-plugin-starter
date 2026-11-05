@@ -165,7 +165,7 @@ TypeScript/React → Babel → Webpack → WRM Plugin → Jira Web Resources
 
 ### Java Version Management
 
-- Project uses **Java 17** (defined in `.java-version`)
+- Project uses **Java 21** (defined in `.java-version`)
 - Use `jenv` if managing multiple JDK versions
 
 ### Maven vs Atlas Commands

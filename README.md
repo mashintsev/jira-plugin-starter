@@ -71,7 +71,7 @@ graph TB
 
         subgraph "Backend Layer"
             subgraph "Core Technologies"
-                Java["Java 17<br/>☕ Programming Language"]
+                Java["Java 21<br/>☕ Programming Language"]
                 Maven["Maven<br/>📦 Build Tool"]
                 Spring["Spring<br/>🏗️ DI Framework"]
                 AO["Active Objects<br/>🗄️ ORM"]
@@ -170,7 +170,7 @@ graph TB
 - **pNpm** - Package manager
 
 #### Backend Technologies
-- **Java 17** - Main programming language
+- **Java 21** - Main programming language
 - **Maven** - Build system and dependency management
 - **Spring Framework** - Dependency Injection
 - **Active Objects** - ORM for database operations

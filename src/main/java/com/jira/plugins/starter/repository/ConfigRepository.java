@@ -28,29 +28,27 @@ public class ConfigRepository {
   }
 
   public Config create(final String propertyKey, @Nullable final String propertyValue) {
-    return ao.executeInTransaction(
-        () -> {
-          Config config = ao.create(Config.class);
-          config.setPropertyKey(propertyKey);
-          config.setPropertyValue(propertyValue);
-          config.save();
-          return config;
-        });
+    return ao.executeInTransaction(() -> {
+      Config config = ao.create(Config.class);
+      config.setPropertyKey(propertyKey);
+      config.setPropertyValue(propertyValue);
+      config.save();
+      return config;
+    });
   }
 
   public Config update(
       final int id, final String propertyKey, @Nullable final String propertyValue) {
-    return ao.executeInTransaction(
-        () -> {
-          Config config = getById(id);
-          if (config == null) {
-            throw new IllegalArgumentException("Config with id " + id + " not found");
-          }
-          config.setPropertyKey(propertyKey);
-          config.setPropertyValue(propertyValue);
-          config.save();
-          return config;
-        });
+    return ao.executeInTransaction(() -> {
+      Config config = getById(id);
+      if (config == null) {
+        throw new IllegalArgumentException("Config with id " + id + " not found");
+      }
+      config.setPropertyKey(propertyKey);
+      config.setPropertyValue(propertyValue);
+      config.save();
+      return config;
+    });
   }
 
   public void delete(final int id) {

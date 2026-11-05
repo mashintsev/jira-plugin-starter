@@ -1,4 +1,4 @@
-import xoTypeScript from 'eslint-config-xo-typescript';
+import xo from 'eslint-config-xo';
 import xoReact from 'eslint-config-xo-react';
 import designSystemPlugin from '@atlaskit/eslint-plugin-design-system';
 import uiStylingStandardPlugin from '@atlaskit/eslint-plugin-ui-styling-standard';
@@ -24,11 +24,11 @@ export default defineConfig([
             "tsconfig.json",
         ]
     },
-    // XO TypeScript config - provides strict TypeScript linting rules
-    ...xoTypeScript,
+    // XO config - strict JavaScript/TypeScript linting rules (browser globals)
+    ...xo({browser: true}),
     
     // XO React config - provides React-specific linting rules
-    ...xoReact,
+    ...xoReact(),
     
     // TanStack Query plugin - ensures best practices for React Query
     ...pluginQuery.configs['flat/recommended'],
@@ -49,7 +49,6 @@ export default defineConfig([
             ecmaVersion: 2024,
             sourceType: 'module',
             parserOptions: {
-                project: ['./tsconfig.json'],
                 tsconfigRootDir: import.meta.dirname,
             },
         },
@@ -64,6 +63,12 @@ export default defineConfig([
             
             // React 18+ doesn't require React import for JSX
             'react/react-in-jsx-scope': 'off',
+
+            // React components are conventionally named in PascalCase
+            'unicorn/filename-case': ['error', {cases: {kebabCase: true, pascalCase: true}}],
+
+            // Webpack resolves imports without extensions (moduleResolution: bundler)
+            'n/file-extension-in-import': 'off',
         },
     },
 ]);
